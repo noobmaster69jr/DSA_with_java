@@ -156,6 +156,42 @@ public class SinglyLinkedList {
 		}
 		return second.data;
 	}
+	
+	// we don't change head here so return type is void
+	static void removeSortedDuplicate(Node head) {
+		Node curr = head;
+		while (curr != null && curr.next != null) {
+			if (curr.data == curr.next.data)
+				curr.next = curr.next.next;
+			else
+				curr = curr.next;
+		}
+	}
+
+	static Node reverseK(Node head, int k) {
+		Node curr = head, prevFirst = null;
+		boolean isFirst = true;
+		while (curr != null) {
+			Node first = curr, prev = null;
+			int count = 0;
+			while (curr != null && count < k) {
+				Node next = curr.next;
+				curr.next = prev;
+				prev = curr;
+				curr = next;
+				count++;
+			}
+			if (isFirst) {
+				head = prev;
+				isFirst = false;
+			} else {
+				prevFirst.next = prev;
+			}
+			prevFirst = first;
+		}
+		return head;
+	}
+
 
 	public static void main(String[] args) {
 		Node head = null;
