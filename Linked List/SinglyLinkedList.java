@@ -137,6 +137,25 @@ public class SinglyLinkedList {
 		}
 		search(head.next, key, pos + 1);
 	}
+		// find nth node from the last
+	static int find_nth_node(Node head, int pos) {
+		if (head == null) {
+			return -1;
+		}
+		Node first = head, second = head;
+
+		for (int i = 0; i < pos; i++) {
+			if (first == null)
+				return -1;
+			first = first.next;
+		}
+
+		while (first != null) {
+			first = first.next;
+			second = second.next;
+		}
+		return second.data;
+	}
 
 	public static void main(String[] args) {
 		Node head = null;
@@ -158,5 +177,11 @@ public class SinglyLinkedList {
 		print(head);
 		System.out.println("mid element in the list is " + mid_element(head));
 		search(head, 9, 0);
+		int result = find_nth_node(head, 2);
+		if (result == -1) {
+			System.out.println("position out of scope");
+		} else {
+			System.out.println("element at pos is : " + result);
+		}
 	}
 }
