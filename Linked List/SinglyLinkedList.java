@@ -113,17 +113,17 @@ public class SinglyLinkedList {
 		return prev;
 	}
 
-	static int mid_element(Node head) {
-		if (head == null) {
-			return -1;
+	static Node mid_element(Node head) {
+		if (head == null || head.next == null) {
+			return head;
 		}
-		Node first = head, second = head;
-		while (first.next != null && first.next.next != null) {
+		Node first = head.next, second = head;
+		while (first != null && first.next != null) {
 			first = first.next.next;
 			second = second.next;
 		}
 
-		return second.data;
+		return second;
 	}
 
 	static void search(Node head, int key, int pos) {
@@ -191,6 +191,37 @@ public class SinglyLinkedList {
 		}
 		return head;
 	}
+
+	static Node merge(Node a, Node b) {
+		if (a == null)
+			return b;
+		if (b == null)
+			return a;
+
+		Node head = null;
+		if (a.data <= b.data) {
+			head = a;
+			head.next = merge(a.next, b);
+		} else {
+			head = b;
+			head.next = merge(a, b.next);
+		}
+		return head;
+	}
+
+	static Node merge_sort(Node head) {
+		if (head == null || head.next == null) {
+			return head;
+		}
+		Node mid = mid_element(head);
+		Node a = head;
+		Node b = mid.next;
+		mid.next = null;
+		a = merge_sort(a);
+		b = merge_sort(b);
+		return merge(a, b);
+	}
+
 
 
 	public static void main(String[] args) {
